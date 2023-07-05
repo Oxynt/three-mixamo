@@ -16,6 +16,7 @@
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'https://unpkg.com/three@0.153.0/examples/jsm/loaders/GLTFLoader.js';
 	let character, p = [0,0], bool=true, mixer, clock = new THREE.Clock();
+	
 	//scene
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000)
@@ -23,14 +24,17 @@
 	const renderer = new THREE.WebGLRenderer({antialias: true});
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	document.body.appendChild(renderer.domElement);	
+	
 	//basic directional light	
 	const dirLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
 	dirLight.position.set( 0,200,-200);
 	scene.add( dirLight );
+	
 	//floor
 	const floor = new THREE.Mesh( new THREE.PlaneGeometry(1000, 1000, 1), new THREE.MeshPhongMaterial( {color: 0xffffff}));
 	floor.rotateX(-90*Math.PI/180);
 	scene.add( floor );
+	
 	//character
 	const gltfLoader = new GLTFLoader();
 	gltfLoader.load( './character.glb', function (gltf) {
@@ -44,6 +48,7 @@
 	character.children[2].visible=false;
 	scene.add( character );
 	});//end loader
+	
 	//render
 	renderer.setAnimationLoop( render );	
 	function render(){ 
